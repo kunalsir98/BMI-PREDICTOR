@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM Member Exercise Tracking</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        /* Keyframes for animation */
+        @keyframes exerciseAnimation {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* SVG Animation */
+        .exercise-animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            animation: exerciseAnimation 5s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            margin-top: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 10;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        h2 {
+            color: #f8f9fa;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            animation: slideIn 1s ease-out;
+        }
+
+        label {
+            font-weight: bold;
+            color: #f8f9fa;
+        }
+
+        .form-control {
+            background-color: #f8f9fa;
+            color: #343a40;
+            animation: slideIn 1s ease-out;
+        }
+
+        .btn-primary, .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 10px;
+            animation: slideIn 1s ease-out;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: scale(1.02);
+        }
+
+        .image-upload-container {
+            border: 2px dashed #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            color: #f8f9fa;
+            cursor: pointer;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .image-upload-container:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .image-upload-container input {
+            display: none;
+        }
+
+        .icon {
+            font-size: 1.2em;
+            margin-left: 10px;
+        }
+
+        .form-group:nth-child(even) .icon {
+            color: #ff6347; /* Tomato for even fields */
+        }
+
+        .form-group:nth-child(odd) .icon {
+            color: #32cd32; /* Lime for odd fields */
+        }
+
+        .form-group .icon:hover {
+            color: #f8f9fa; /* Hover effect: light color */
+            transform: scale(1.2);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- SVG Animated Background -->
+    <svg class="exercise-animation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#28a745" stroke-width="10" stroke-dasharray="500" stroke-dashoffset="500">
+            <animate attributeName="stroke-dashoffset" from="500" to="0" dur="5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="100" cy="100" r="60" fill="none" stroke="#ff6347" stroke-width="10" stroke-dasharray="400" stroke-dashoffset="400">
+            <animate attributeName="stroke-dashoffset" from="400" to="0" dur="5s" repeatCount="indefinite"/>
+        </circle>
+    </svg>
+
+    <div class="container">
+        <h2>GYM Member Exercise Tracking</h2>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+
+            <!-- Form Fields with Icons -->
+            <div class="form-group">
+                <label for="Age">Age (years):</label>
+                <input type="number" class="form-control" id="Age" name="Age" required>
+                <i class="fas fa-birthday-cake icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Weight_kg">Weight (kg):</label>
+                <input type="number" class="form-control" id="Weight_kg" name="Weight_kg" required>
+                <i class="fas fa-weight icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Height_m">Height (m):</label>
+                <input type="number" step="0.01" class="form-control" id="Height_m" name="Height_m" required>
+                <i class="fas fa-ruler-vertical icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Max_BPM">Max BPM:</label>
+                <input type="number" class="form-control" id="Max_BPM" name="Max_BPM" required>
+                <i class="fas fa-heartbeat icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Avg_BPM">Average BPM:</label>
+                <input type="number" class="form-control" id="Avg_BPM" name="Avg_BPM" required>
+                <i class="fas fa-heart icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Resting_BPM">Resting BPM:</label>
+                <input type="number" class="form-control" id="Resting_BPM" name="Resting_BPM" required>
+                <i class="fas fa-bed icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Session_Duration_hours">Session Duration (hours):</label>
+                <input type="number" step="0.1" class="form-control" id="Session_Duration_hours" name="Session_Duration_hours" required>
+                <i class="fas fa-clock icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Calories_Burned">Calories Burned:</label>
+                <input type="number" class="form-control" id="Calories_Burned" name="Calories_Burned" required>
+                <i class="fas fa-fire icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Fat_Percentage">Fat Percentage (%):</label>
+                <input type="number" step="0.1" class="form-control" id="Fat_Percentage" name="Fat_Percentage" required>
+                <i class="fas fa-fire icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Water_Intake_liters">Water Intake (liters):</label>
+                <input type="number" step="0.1" class="form-control" id="Water_Intake_liters" name="Water_Intake_liters" required>
+                <i class="fas fa-fire icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Workout_Frequency_days_week">Workout Frequency (days/week):</label>
+                <input type="number" class="form-control" id="Workout_Frequency_days_week" name="Workout_Frequency_days_week" required>
+                <i class="fas fa-fire icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Experience_Level">Experience Level (1-5):</label>
+                <input type="number" min="1" max="5" class="form-control" id="Experience_Level" name="Experience_Level" required>
+                <i class="fas fa-fire icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Gender">Gender:</label>
+                <select class="form-control" id="Gender" name="Gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <i class="fas fa-fire icon"></i>
+            </div>
+            <div class="form-group">
+                <label for="Workout_Type">Workout Type:</label>
+                <select class="form-control" id="Workout_Type" name="Workout_Type" required>
+                    <option value="" disabled selected>Select your workout type</option>
+                    <option value="Yoga">Yoga</option>
+                    <option value="HIIT">HIIT</option>
+                    <option value="Cardio">Cardio</option>
+                    <option value="Strength">Strength</option>
+                </select>
+                <i class="fas fa-fire icon"></i>
+            </div>
+            
+
+            <button type="submit" class="btn btn-primary">Submit Data</button>
+            <button type="reset" class="btn btn-secondary">Reset Form</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

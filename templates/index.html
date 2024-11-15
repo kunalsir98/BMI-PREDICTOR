@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Member Exercise Tracking</title>
+    <style>
+        /* Base and reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1b1b2f;
+            color: #eaeaea;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #162447;
+            padding: 20px 40px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .navbar .logo {
+            color: #1f4068;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .navbar a {
+            color: #eaeaea;
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #e43f5a;
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Use a high-quality gym background image */
+            background-size: cover;
+            background-position: center;
+            padding: 120px 20px;
+            height: 100vh;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #e43f5a;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #eaeaea;
+            max-width: 700px;
+            margin: 10px auto;
+            line-height: 1.6;
+        }
+
+        .hero .btn {
+            margin-top: 20px;
+            background-color: #e43f5a;
+            color: #eaeaea;
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .hero .btn:hover {
+            background-color: #c02739;
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 20px;
+            margin: 20px 0;
+            max-width: 800px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            background-color: #162447;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 32px;
+            color: #e43f5a;
+            margin-bottom: 20px;
+        }
+
+        section p,
+        section li {
+            font-size: 18px;
+            color: #d3d3d3;
+            line-height: 1.6;
+        }
+
+        section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        section li {
+            margin: 10px 0;
+        }
+
+        /* Testimonials */
+        blockquote {
+            font-size: 18px;
+            font-style: italic;
+            color: #d3d3d3;
+            background: #1f4068;
+            border-left: 5px solid #e43f5a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1b1b2f;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
+
+            .navbar a {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Gym Tracker</div>
+        <div>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Gym Member Exercise Tracking</h1>
+        <p>Track your progress, monitor your workouts, and achieve your fitness goals with our advanced exercise tracking tool.</p>
+        <a href="{{ url_for('predict_datapoint') }}" class="btn">Get Started</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Our Tool</h2>
+        <p>Our gym member exercise tracking tool is designed to help you stay on top of your fitness journey. Record exercises, monitor progress, and set goals with ease!</p>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>Track workout details with ease</li>
+            <li>Set and monitor personal fitness goals</li>
+            <li>Get insights on your progress</li>
+            <li>User-friendly interface with powerful features</li>
+        </ul>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <h2>Testimonials</h2>
+        <blockquote>"A great tool for tracking my progress. Keeps me motivated every day!" - Alex</blockquote>
+        <blockquote>"Love the simplicity and effectiveness of this tool. Highly recommend it!" - Jamie</blockquote>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>For inquiries, reach out to our team:</p>
+        <p>Email: support@gymtracker.com</p>
+        <p>Phone: (123) 456-7890</p>
+    </section>
+
+    <div class="footer">
+        <p>&copy; 2024 Gym Tracker. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Smooth scroll effect
+        document.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + window.innerHeight;
+            sections.forEach(section => {
+                if (scrollPosition > section.offsetTop + section.offsetHeight / 4) {
+                    section.classList.add('visible');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
