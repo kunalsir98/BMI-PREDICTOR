@@ -7,3 +7,5 @@ Flask
 #-e .
 mlflow 
 dvc
+gunicorn
+vercel
